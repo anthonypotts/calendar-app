@@ -13,10 +13,10 @@ onLoad();
 
 // save text entry to LS //
 $('button').click(function () {
-	tArea = $(this).siblings('textarea').val();
-	wDay = $(this).siblings('textarea').attr('id');
+	textArea = $(this).siblings('textarea').val();
+	workDay = $(this).siblings('textarea').attr('id');
 
-	localStorage.setItem(wDay, tArea);
+	localStorage.setItem(workDay, textArea);
 });
 
 // color code the days //
@@ -30,7 +30,7 @@ for (i = 8; i < 18; i++) {
 	} else {
 		$(textInput).addClass('present');
 	}
-	eCounter++;
+    eCounter++;
 }
 
 // retrieve local storage //
