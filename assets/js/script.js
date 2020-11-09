@@ -1,22 +1,39 @@
-//GLOBAL VARIABLES
-var cTime = moment();
+// variables //
+var currentTime = moment();
 var eCounter = 1;
 
-//----COLOR CODE THE TIME OF DAY (PAST, PRESENT, FUTURE)----//
+// load page //
+var onLoad = function (list) {
+	// show current time with Moment
+	$('#currentDay').text(
+		currentTime.format('dddd') + ', ' + currentTime.format('MMM Do YYYY')
+	);
+};
+onLoad();
+
+// save text entry to LS //
+$('button').click(function () {
+	tArea = $(this).siblings('textarea').val();
+	wDay = $(this).siblings('textarea').attr('id');
+
+	localStorage.setItem(wDay, tArea);
+});
+
+// color code the days //
 for (i = 8; i < 18; i++) {
-	var tEntry = '#text-entry' + eCounter;
-	var hour = cTime.hour();
+	var textInput = '#text' + eCounter;
+	var hour = currentTime.hour();
 	if (i < hour) {
-		$(tEntry).addClass('past');
+		$(textInput).addClass('past');
 	} else if (i > hour) {
-		$(tEntry).addClass('future');
+		$(textInput).addClass('future');
 	} else {
-		$(tEntry).addClass('present');
+		$(textInput).addClass('present');
 	}
 	eCounter++;
 }
 
-//----GET LOCAL STORAGE----//
+// retrieve local storage //
 var checkHistory = function () {
 	$('#text-1').val(localStorage.getItem('text-1'));
 	$('#text-2').val(localStorage.getItem('text-2'));
@@ -31,20 +48,3 @@ var checkHistory = function () {
     $('#text-11').val(localStorage.getItem('text-11'));
 };
 checkHistory();
-
-//---SAVE THE TEXT ENTRY TO LOCAL STORAGE----//
-$('button').click(function () {
-	tArea = $(this).siblings('textarea').val();
-	wDay = $(this).siblings('textarea').attr('id');
-
-	localStorage.setItem(wDay, tArea);
-});
-
-//----LOAD THE PAGE----//
-var onLoad = function (list) {
-	//grab the current time
-	$('#currentDay').text(
-		cTime.format('dddd') + ', ' + cTime.format('MMM Do YYYY')
-	);
-};
-onLoad();
